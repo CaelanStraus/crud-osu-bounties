@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OSU Bounties CRUD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>OSU Bounties & Users</h1>
+
+    <section>
+        <h2>Users</h2>
+        <form id="userForm">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Add User</button>
+        </form>
+        <table id="usersTable" border="1">
+            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Bounties</h2>
+        <form id="bountyForm">
+            <input type="text" name="beatmap_title" placeholder="Title" required>
+            <input type="url" name="beatmap_url" placeholder="Beatmap URL" required>
+            <input type="text" name="artist" placeholder="Artist" required>
+            <input type="text" name="difficulty" placeholder="Difficulty" required>
+            <input type="text" name="reward" placeholder="Reward" required>
+            <button type="submit">Add Bounty</button>
+        </form>
+        <table id="bountiesTable" border="1">
+            <thead><tr><th>ID</th><th>Title</th><th>Artist</th><th>Reward</th><th>Actions</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
