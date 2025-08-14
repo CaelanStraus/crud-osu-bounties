@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>OSU Bounties & Users</h1>
+    <div id="currentDbPath"></div>
 
     <section>
         <h2>Users</h2>
@@ -14,10 +15,13 @@
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="profile_picture" placeholder="Profile Image Filename">
             <button type="submit">Add User</button>
         </form>
         <table id="usersTable" border="1">
-            <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
+            <thead>
+                <tr><th>ID</th><th>Name</th><th>Email</th><th>Image</th><th>Actions</th></tr>
+            </thead>
             <tbody></tbody>
         </table>
     </section>
@@ -30,10 +34,13 @@
             <input type="text" name="artist" placeholder="Artist" required>
             <input type="text" name="difficulty" placeholder="Difficulty" required>
             <input type="text" name="reward" placeholder="Reward" required>
+            <input type="text" name="beatmap_image" placeholder="Beatmap Image Filename">
             <button type="submit">Add Bounty</button>
         </form>
         <table id="bountiesTable" border="1">
-            <thead><tr><th>ID</th><th>Title</th><th>Artist</th><th>Reward</th><th>Actions</th></tr></thead>
+            <thead>
+                <tr><th>ID</th><th>Title</th><th>Artist</th><th>Reward</th><th>Image</th><th>Actions</th></tr>
+            </thead>
             <tbody></tbody>
         </table>
     </section>

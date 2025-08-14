@@ -31,3 +31,9 @@ button {
     padding: 6px 10px;
     cursor: pointer;
 }
+
+.table-img {
+    max-width: 80px;
+    max-height: 80px;
+    display: block;
+}

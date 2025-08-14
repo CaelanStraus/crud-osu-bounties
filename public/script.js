@@ -11,7 +11,10 @@ async function loadUsers() {
     tbody.innerHTML = '';
     users.forEach(user => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${user.id}</td><td>${user.name}</td><td>${user.email}</td>
+        tr.innerHTML = `<td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.profile_picture_url ? `<img src="${user.profile_picture_url}" class="table-img">` : ''}</td>
                         <td><button onclick="deleteUser(${user.id})">Delete</button></td>`;
         tbody.appendChild(tr);
     });
@@ -24,7 +27,11 @@ async function loadBounties() {
     tbody.innerHTML = '';
     bounties.forEach(b => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${b.id}</td><td>${b.beatmap_title}</td><td>${b.artist}</td><td>${b.reward}</td>
+        tr.innerHTML = `<td>${b.id}</td>
+                        <td>${b.beatmap_title}</td>
+                        <td>${b.artist}</td>
+                        <td>${b.reward}</td>
+                        <td>${b.beatmap_image_url ? `<img src="${b.beatmap_image_url}" class="table-img">` : ''}</td>
                         <td><button onclick="deleteBounty(${b.id})">Delete</button></td>`;
         tbody.appendChild(tr);
     });

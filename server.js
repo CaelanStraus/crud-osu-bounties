@@ -1,35 +1,38 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
-const { setPath, getPath } = require('./db');
-const usersRoutes = require('./routes/users');
-const bountiesRoutes = require('./routes/bounties');
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/users', usersRoutes);
+const osuBountiesImagesPath = path.resolve(process.env.OSU_BOUNTIES_IMAGES_PATH);
+const profileImagesPath = path.join(osuBountiesImagesPath, 'profiles');
+const beatmapImagesPath = path.join(osuBountiesImagesPath, 'beatmaps');
+
+console.log('Serving Laravel images from:', osuBountiesImagesPath);
+app.use('/images', express.static(osuBountiesImagesPath));
+
+const bountiesRoutes = require('./routes/bounties')(beatmapImagesPath);
+const usersRoutes = require('./routes/users')(profileImagesPath);
+
 app.use('/api/bounties', bountiesRoutes);
+app.use('/api/users', usersRoutes);
 
-app.post('/api/dbpath', (req, res) => {
-    const { path } = req.body;
-    if (!path) return res.status(400).json({ error: 'Path is required' });
-    try {
-        setPath(path);
-        res.json({ success: true, currentPath: getPath() });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
+const dbModule = require('./db');
 app.get('/api/dbpath', (req, res) => {
-    res.json({ currentPath: getPath() });
+  res.json({ currentPath: dbModule.getPath() });
 });
 
-const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
