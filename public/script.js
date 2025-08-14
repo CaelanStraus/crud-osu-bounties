@@ -1,3 +1,9 @@
+async function loadDbPath() {
+    const res = await fetch('/api/dbpath');
+    const data = await res.json();
+    document.getElementById('currentDbPath').textContent = `Current DB Path: ${data.currentPath}`;
+}
+
 async function loadUsers() {
     const res = await fetch('/api/users');
     const users = await res.json();
@@ -27,28 +33,42 @@ async function loadBounties() {
 document.getElementById('userForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    const res = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-    if (res.ok) {
+    try {
+        const res = await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        if (!res.ok) {
+            const errorData = await res.json();
+            alert('Error adding user: ' + JSON.stringify(errorData));
+            return;
+        }
         e.target.reset();
         loadUsers();
+    } catch (err) {
+        alert('Network error: ' + err.message);
     }
 });
 
 document.getElementById('bountyForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    const res = await fetch('/api/bounties', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-    if (res.ok) {
+    try {
+        const res = await fetch('/api/bounties', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        if (!res.ok) {
+            const errorData = await res.json();
+            alert('Error adding bounty: ' + JSON.stringify(errorData));
+            return;
+        }
         e.target.reset();
         loadBounties();
+    } catch (err) {
+        alert('Network error: ' + err.message);
     }
 });
 
@@ -62,5 +82,6 @@ async function deleteBounty(id) {
     loadBounties();
 }
 
+loadDbPath();
 loadUsers();
 loadBounties();
